@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<!--wxml 类似html结构-->
+<view class="container">
+  <view class="search">
+    <image src="../../images/plus.png" bindtap="addTodoHandle"></image>
+    <input type="text" placeholder="Anything here..." value="{{search}}" bindchange="searchChangeHandle" bindconfirm="addTodoHandle"/>
+  </view>
+  <block wx:if="{{todos.length}}">
+    <view class="todos">
+      <view class="item{{item.completed?' completed':''}}" wx:for="{{todos}}" wx:key="aaa" bindtap="toggleTodoHandle" data-index="{{index}}">
+        <icon type="{{item.completed?'success':'circle'}}"></icon>
+        <text>{{item.name}}</text>
+        <icon type="clear" size="16" catchtap="removeTodoHandle" data-index="{{index}}"></icon>
+      </view>
+    </view>
+    <view class="footer">
+      <text bindtap="toggleAllHandle">Toggle all</text>
+      <!--当剩余条数为0时，wx:if="false"，不显示这一项-->
+      <text wx:if="{{leftCount}}">{{leftCount}} {{leftCount>1?'items':'item'}} left</text>
+      <text bindtap="clearCompletedHandle">Clear completed</text>
+    </view>
+  </block>
+  <view wx:else>
+    <text class="tip">目前没有任何任务哦</text>
+  </view>
+</view>
+
+
+
+
